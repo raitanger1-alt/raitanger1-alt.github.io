@@ -28,24 +28,20 @@ function reply(msg) {
   return lang === "ar"
     ? "احكيلي أكتر… أنا سامعك."
     : "Tell me more… I’m listening.";
-}
+};
 function quick(type) {
-  if (type === "sad") addMessage("أنا حزين", "user");
-  if (type === "talk") addMessage("أحتاج أتكلم", "user");
-  if (type === "calm") addMessage("أريد أن أهدأ", "user");
-  addMessage(reply(type), "bot");
-}
-let silent = false;
+  if (type === "sad") {
+    addMessage("أنا حزين", "user");
+    addMessage("حاسس بيك… تحب تحكي أكتر؟", "bot");
+  }
 
-function toggleSilent() {
-  silent = !silent;
-  addMessage(
-    silent ? "🟢 وضع الاستماع مفعل" : "🔵 وضع الاستماع متوقف",
-    "bot"
-  );
-}
-if (silent) return "أنا معك… خذ وقتك.";
-function logMood(mood) {
-  const today = new Date().toLocaleDateString();
-  localStorage.setItem("mood_" + today, mood);
+  if (type === "talk") {
+    addMessage("أحتاج أتكلم", "user");
+    addMessage("أنا سامعك 🤍", "bot");
+  }
+
+  if (type === "calm") {
+    addMessage("أريد أن أهدأ", "user");
+    addMessage("خلّينا نهدى سوا شوية 🌿", "bot");
+  }
 }
