@@ -35,3 +35,12 @@ function quick(type) {
   if (type === "calm") addMessage("أريد أن أهدأ", "user");
   addMessage(reply(type), "bot");
 }
+let silent = false;
+
+function toggleSilent() {
+  silent = !silent;
+  addMessage(
+    silent ? "🟢 وضع الاستماع مفعل" : "🔵 وضع الاستماع متوقف",
+    "bot"
+  );
+}
