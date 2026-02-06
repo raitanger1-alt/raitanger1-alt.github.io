@@ -44,3 +44,4 @@ function toggleSilent() {
     "bot"
   );
 }
+if (silent) return "أنا معك… خذ وقتك.";
