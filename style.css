@@ -46,3 +46,13 @@ button {
   background: #4caf50;
   color: #fff;
 }
+
+#actions {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+#actions button {
+  width: 32%;
+  font-size: 20px;
+}
