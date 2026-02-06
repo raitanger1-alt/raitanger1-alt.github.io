@@ -45,3 +45,7 @@ function toggleSilent() {
   );
 }
 if (silent) return "أنا معك… خذ وقتك.";
+function logMood(mood) {
+  const today = new Date().toLocaleDateString();
+  localStorage.setItem("mood_" + today, mood);
+}
