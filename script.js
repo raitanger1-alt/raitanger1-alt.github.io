@@ -1,47 +1,79 @@
+const chat = document.getElementById("chat");
+const input = document.getElementById("input");
+
+let silent = false;
+
+function save() {
+  localStorage.setItem("jabaroot_chat", chat.innerHTML);
+}
+
+function load() {
+  const data = localStorage.getItem("jabaroot_chat");
+  if (data) chat.innerHTML = data;
+}
+
+function addMessage(text, sender) {
+  const div = document.createElement("div");
+  div.textContent = text;
+  div.style.margin = "6px 0";
+  div.style.textAlign = sender === "bot" ? "left" : "right";
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+  save();
+}
+
 function reply(msg) {
+  if (silent) return "أنا معك… خذ وقتك.";
+
   const lang = navigator.language.startsWith("ar") ? "ar" : "en";
   msg = msg.toLowerCase();
 
   const brain = {
     ar: [
-      { k: ["حزين", "تعبان", "مكتئب"], v: "حاسس بيك… تحب تحكي أكتر؟" },
-      { k: ["لوحدي", "وحده"], v: "مش لوحدك، أنا معاك دلوقتي." },
-      { k: ["خايف", "قلقان"], v: "خلّينا نهدى نفسنا سوا شوية." },
-      { k: ["سلام", "مرحبا"], v: "أهلًا 🤍 عامل إيه؟" }
+      { k: ["حزين", "تعبان"], v: "حاسس بيك… تحب تحكي؟" },
+      { k: ["لوحدي"], v: "مش لوحدك، أنا هنا." },
+      { k: ["سلام", "مرحبا"], v: "أهلًا 🤍" }
     ],
     en: [
-      { k: ["sad", "tired", "depressed"], v: "I feel you… want to talk more?" },
-      { k: ["alone", "lonely"], v: "You are not alone. I’m here." },
-      { k: ["afraid", "anxious"], v: "Let’s slow down together." },
-      { k: ["hi", "hello"], v: "Hello 🤍 how are you?" }
+      { k: ["sad", "tired"], v: "I feel you… want to talk?" },
+      { k: ["alone"], v: "You’re not alone." },
+      { k: ["hi", "hello"], v: "Hello 🤍" }
     ]
   };
 
   const set = brain[lang] || brain.en;
 
   for (let r of set) {
-    for (let word of r.k) {
-      if (msg.includes(word)) return r.v;
+    for (let w of r.k) {
+      if (msg.includes(w)) return r.v;
     }
   }
 
   return lang === "ar"
     ? "احكيلي أكتر… أنا سامعك."
     : "Tell me more… I’m listening.";
-};
-function quick(type) {
-  if (type === "sad") {
-    addMessage("أنا حزين", "user");
-    addMessage("حاسس بيك… تحب تحكي أكتر؟", "bot");
-  }
-
-  if (type === "talk") {
-    addMessage("أحتاج أتكلم", "user");
-    addMessage("أنا سامعك 🤍", "bot");
-  }
-
-  if (type === "calm") {
-    addMessage("أريد أن أهدأ", "user");
-    addMessage("خلّينا نهدى سوا شوية 🌿", "bot");
-  }
 }
+
+function send() {
+  if (!input.value) return;
+  addMessage(input.value, "user");
+  addMessage(reply(input.value), "bot");
+  input.value = "";
+}
+
+function quick(type) {
+  if (type === "sad") addMessage("أنا حزين", "user");
+  if (type === "talk") addMessage("أحتاج أتكلم", "user");
+  if (type === "calm") addMessage("أريد أن أهدأ", "user");
+  addMessage(reply(type), "bot");
+}
+
+function toggleSilent() {
+  silent = !silent;
+  addMessage(
+    silent ? "🟢 وضع الاستماع مفعل" : "🔵 وضع الاستماع متوقف",
+    "bot"
+  );
+}
+
+load();
