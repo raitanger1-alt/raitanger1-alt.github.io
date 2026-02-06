@@ -29,3 +29,9 @@ function reply(msg) {
     ? "احكيلي أكتر… أنا سامعك."
     : "Tell me more… I’m listening.";
 }
+function quick(type) {
+  if (type === "sad") addMessage("أنا حزين", "user");
+  if (type === "talk") addMessage("أحتاج أتكلم", "user");
+  if (type === "calm") addMessage("أريد أن أهدأ", "user");
+  addMessage(reply(type), "bot");
+}
