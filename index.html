@@ -1,26 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
   <meta charset="UTF-8">
   <title>Jabaroot</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <div id="app">
-    <h1>Jabaroot AI</h1>
+    <h1>Jabaroot 🤖</h1>
+
     <div id="chat"></div>
-<div id="actions">
-  <button onclick="quick('sad')">😞</button>
-  <button onclick="quick('talk')">💬</button>
-  <button onclick="quick('calm')">🌿</button>
-</div>
-    <input id="input" placeholder="Type here..." />
-    <button onclick="send()">Send</button>
+
+    <div id="actions">
+      <button onclick="quick('sad')">😞</button>
+      <button onclick="quick('talk')">💬</button>
+      <button onclick="quick('calm')">🌿</button>
+    </div>
+
+    <div id="controls">
+      <input id="input" placeholder="اكتب هنا..." />
+      <button onclick="send()">Send</button>
+      <button onclick="toggleSilent()">🎧</button>
+    </div>
   </div>
 
   <script src="script.js"></script>
 </body>
 </html>
-<button onclick="toggleSilent()">🎧 استماع</button>
-<button onclick="quick('sad')">😞</button>
